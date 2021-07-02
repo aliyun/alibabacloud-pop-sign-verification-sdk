@@ -4,7 +4,7 @@ package com.nbf.component.aliyun.sdk.sign.constants.enums;
  * 签名协议枚举
  *
  * @author 倚枭
- * @date 2021/06/15
+ * created on 2021/06/15
  */
 public enum SignProtocolEnum {
 

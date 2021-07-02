@@ -2,7 +2,7 @@ package com.nbf.component.aliyun.sdk.sign.constants.enums;
 
 /**
  * @author 倚枭
- * @date 2021/06/15
+ * created on 2021/06/15
  */
 public enum HmacAlgorithmEnum {
 

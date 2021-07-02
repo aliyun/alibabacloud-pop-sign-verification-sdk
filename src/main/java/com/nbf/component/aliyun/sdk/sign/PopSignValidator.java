@@ -30,7 +30,7 @@ import com.nbf.component.aliyun.sdk.sign.constants.enums.SignProtocolEnum;
  * pop网关后端http签名校验
  *
  * @author 倚枭
- * @date 2021/06/15
+ * created on 2021/06/15
  */
 public class PopSignValidator {
 
