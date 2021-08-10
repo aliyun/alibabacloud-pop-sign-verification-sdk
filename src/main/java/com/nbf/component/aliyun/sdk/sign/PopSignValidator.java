@@ -25,6 +25,7 @@ import com.nbf.component.aliyun.sdk.sign.constants.SignSymbolConstants;
 import com.nbf.component.aliyun.sdk.sign.constants.enums.DigestAlgorithmEnum;
 import com.nbf.component.aliyun.sdk.sign.constants.enums.HmacAlgorithmEnum;
 import com.nbf.component.aliyun.sdk.sign.constants.enums.SignProtocolEnum;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * pop网关后端http签名校验
@@ -32,6 +33,7 @@ import com.nbf.component.aliyun.sdk.sign.constants.enums.SignProtocolEnum;
  * @author 倚枭
  * created on 2021/06/15
  */
+@Slf4j
 public class PopSignValidator {
 
     /**
@@ -85,6 +87,7 @@ public class PopSignValidator {
         }
 
         String authorization = request.getHeader(SignHttpHeaderConstants.AUTHORIZATION).trim();
+        log.info("request header Authorization: {}", authorization);
         String acs3HmacSha256 = SignProtocolEnum.ACS3_HMAC_SHA256.getValue();
         String[] elementsArr = authorization.substring(
             authorization.indexOf(acs3HmacSha256) + acs3HmacSha256.length() + 1).split(SignSymbolConstants.COMMA);
@@ -106,8 +109,11 @@ public class PopSignValidator {
         String clientSignature = signingElements.get(SignHttpHeaderConstants.AUTH_SIGNATURE);
 
         String canonicalRequest = buildCanonicalRequest(request, signedHeaders);
+        log.info("canonicalRequest: {}", canonicalRequest);
         String stringToSign = generateStringToSign(canonicalRequest);
+        log.info("stringToSign: {}", stringToSign);
         String serverSign = doSign(stringToSign, accessKeySecret);
+        log.info("serverSign: {}", serverSign);
         if (!serverSign.equals(clientSignature)) {
             throw new RuntimeException("SignValidateFail. serverStringToSign=[" + stringToSign + "], "
                 + "serverCanonicalRequest=[" + canonicalRequest + "]");
